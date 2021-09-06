@@ -127,11 +127,6 @@ public class dialogRegister extends javax.swing.JDialog {
                 jTFEmailFocusLost(evt);
             }
         });
-        jTFEmail.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jTFEmailMouseExited(evt);
-            }
-        });
         JPBG.add(jTFEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 230, 250, 25));
 
         jTFUser.setBackground(new java.awt.Color(33, 33, 33));
@@ -219,8 +214,8 @@ public class dialogRegister extends javax.swing.JDialog {
     }//GEN-LAST:event_jLLoginMouseExited
 
     private void jLLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLLoginMouseClicked
-        dispose();
         new dialogLogin(null, true).setVisible(true);
+        dispose();
     }//GEN-LAST:event_jLLoginMouseClicked
 
     private void jTFEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusGained
@@ -268,10 +263,6 @@ public class dialogRegister extends javax.swing.JDialog {
             jTPassword.setEchoChar((char)0);
         }
     }//GEN-LAST:event_jTPasswordFocusLost
-
-    private void jTFEmailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFEmailMouseExited
-
-    }//GEN-LAST:event_jTFEmailMouseExited
 
     /**
      * @param args the command line arguments

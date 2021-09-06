@@ -196,7 +196,9 @@ public class dialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_jTFEmailFocusGained
 
     private void jTFEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusLost
-        jTFEmail.setText("E-mail");  
+        if ((jTFEmail.getText().equals("E-mail") || (jTFEmail.getText().equals("")))) {
+            jTFEmail.setText("E-mail");  
+        }
     }//GEN-LAST:event_jTFEmailFocusLost
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
@@ -245,7 +247,10 @@ public class dialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_jLForgotMouseExited
 
     private void JTPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTPasswordFocusLost
-        JTPassword.setText("Password");
+        String pass = String.valueOf(JTPassword.getPassword());
+        if (((pass.toLowerCase().equals("")) || (pass.toLowerCase().equals("password")))) {
+            JTPassword.setText("Password");     
+        }
     }//GEN-LAST:event_JTPasswordFocusLost
 
     private void jLSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignInMouseClicked
@@ -253,8 +258,8 @@ public class dialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_jLSignInMouseClicked
 
     private void jLSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignUpMouseClicked
-        dispose();
         new dialogRegister(null, true).setVisible(true);
+        dispose();
     }//GEN-LAST:event_jLSignUpMouseClicked
 
     /**
