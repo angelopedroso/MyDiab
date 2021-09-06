@@ -45,7 +45,6 @@ public class dialogLogin extends javax.swing.JDialog {
         jLPEye = new javax.swing.JLabel();
         jLPEyeClose = new javax.swing.JLabel();
         jLForgot = new javax.swing.JLabel();
-        jLErrorMail = new javax.swing.JLabel();
         LoginBG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -165,10 +164,6 @@ public class dialogLogin extends javax.swing.JDialog {
         });
         jPBG.add(jLForgot, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 317, -1, -1));
 
-        jLErrorMail.setFont(new java.awt.Font("Lato Black", 1, 12)); // NOI18N
-        jLErrorMail.setForeground(new java.awt.Color(237, 66, 69));
-        jPBG.add(jLErrorMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 210, -1, -1));
-
         LoginBG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Login/Login.png"))); // NOI18N
         jPBG.add(LoginBG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -195,19 +190,13 @@ public class dialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_jLSignInMouseExited
 
     private void jTFEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusGained
-        LoginBG.setIcon(new ImageIcon("src/Images/Login/Login.png"));
-        jLErrorMail.setText("");
-        if ((jTFEmail.getText().equals("E-mail"))) {
+        if ((jTFEmail.getText().equals("E-mail") || (jTFEmail.getText().equals("")))) {
             jTFEmail.setText("");   
         }
     }//GEN-LAST:event_jTFEmailFocusGained
 
     private void jTFEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusLost
-        if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", jTFEmail.getText()))){
-            LoginBG.setIcon(new ImageIcon("src/Images/Login/ForgotPasswordError.png"));
-            jLErrorMail.setText("Invalid E-mail");
-            jTFEmail.setText("E-mail");
-        }      
+        jTFEmail.setText("E-mail");  
     }//GEN-LAST:event_jTFEmailFocusLost
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
@@ -223,7 +212,10 @@ public class dialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_formMouseDragged
 
     private void JTPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTPasswordFocusGained
-
+        String pass = String.valueOf(JTPassword.getPassword());
+        if ((pass.toLowerCase().equals("") || (pass.toLowerCase().equals("password")))) {
+            JTPassword.setText("");          
+        }
     }//GEN-LAST:event_JTPasswordFocusGained
 
     private void jLPEyeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLPEyeMouseClicked
@@ -253,24 +245,10 @@ public class dialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_jLForgotMouseExited
 
     private void JTPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTPasswordFocusLost
-
+        JTPassword.setText("Password");
     }//GEN-LAST:event_JTPasswordFocusLost
 
     private void jLSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignInMouseClicked
-        if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", jTFEmail.getText()))){
-            LoginBG.setIcon(new ImageIcon("src/Images/Login/ForgotPasswordError.png"));
-            jLErrorMail.setText("Invalid E-mail");
-            jTFEmail.setText("E-mail");
-            jTFEmail.requestFocus();
-            return;
-        }   
-        
-        if (JTPassword.getText().trim().isEmpty() || (JTPassword.getText().equals("Password"))) {
-            LoginBG.setIcon(new ImageIcon("src/Images/Login/ForgotPassword.png"));
-            JTPassword.setText("Password");
-            JTPassword.requestFocus();
-            return;
-        }
         
     }//GEN-LAST:event_jLSignInMouseClicked
 
@@ -325,7 +303,6 @@ public class dialogLogin extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField JTPassword;
     private javax.swing.JLabel LoginBG;
-    private javax.swing.JLabel jLErrorMail;
     private javax.swing.JLabel jLForgot;
     private javax.swing.JLabel jLPEye;
     private javax.swing.JLabel jLPEyeClose;

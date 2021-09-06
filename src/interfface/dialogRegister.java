@@ -38,13 +38,13 @@ public class dialogRegister extends javax.swing.JDialog {
     private void initComponents() {
 
         JPBG = new javax.swing.JPanel();
-        jTFEmail = new javax.swing.JTextField();
-        JTPassword = new javax.swing.JPasswordField();
         jLPEye = new javax.swing.JLabel();
         jLPEyeClose = new javax.swing.JLabel();
         jBSignUp = new javax.swing.JButton();
-        jTFUser = new javax.swing.JTextField();
         jLLogin = new javax.swing.JLabel();
+        jTFEmail = new javax.swing.JTextField();
+        jTFUser = new javax.swing.JTextField();
+        jTPassword = new javax.swing.JPasswordField();
         jLBG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -62,44 +62,6 @@ public class dialogRegister extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         JPBG.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTFEmail.setBackground(new java.awt.Color(33, 33, 33));
-        jTFEmail.setFont(new java.awt.Font("Lato", 1, 14)); // NOI18N
-        jTFEmail.setForeground(new java.awt.Color(192, 192, 192));
-        jTFEmail.setText("E-mail");
-        jTFEmail.setToolTipText(null);
-        jTFEmail.setBorder(null);
-        jTFEmail.setOpaque(true);
-        jTFEmail.setVerifyInputWhenFocusTarget(false);
-        jTFEmail.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTFEmailFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTFEmailFocusLost(evt);
-            }
-        });
-        JPBG.add(jTFEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 240, 25));
-
-        JTPassword.setBackground(new java.awt.Color(33, 33, 33));
-        JTPassword.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        JTPassword.setForeground(new java.awt.Color(192, 192, 192));
-        JTPassword.setText("Password");
-        JTPassword.setBorder(null);
-        JTPassword.setCaretColor(new java.awt.Color(230, 230, 230));
-        JTPassword.setEchoChar((char)0);
-        JTPassword.setFocusAccelerator('8');
-        JTPassword.setOpaque(true);
-        JTPassword.setPreferredSize(new java.awt.Dimension(224, 25));
-        JTPassword.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                JTPasswordFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                JTPasswordFocusLost(evt);
-            }
-        });
-        JPBG.add(JTPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 338, -1, -1));
 
         jLPEye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Login/white eye.png"))); // NOI18N
         jLPEye.setPreferredSize(new java.awt.Dimension(15, 15));
@@ -134,16 +96,6 @@ public class dialogRegister extends javax.swing.JDialog {
         });
         JPBG.add(jBSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 403, -1, -1));
 
-        jTFUser.setBackground(new java.awt.Color(33, 33, 33));
-        jTFUser.setFont(new java.awt.Font("Lato", 1, 14)); // NOI18N
-        jTFUser.setForeground(new java.awt.Color(192, 192, 192));
-        jTFUser.setText("Username");
-        jTFUser.setToolTipText(null);
-        jTFUser.setBorder(null);
-        jTFUser.setOpaque(true);
-        jTFUser.setVerifyInputWhenFocusTarget(false);
-        JPBG.add(jTFUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 284, 240, 25));
-
         jLLogin.setFont(new java.awt.Font("Lato Black", 1, 13)); // NOI18N
         jLLogin.setForeground(new java.awt.Color(64, 154, 146));
         jLLogin.setText("Already have an account?");
@@ -161,6 +113,61 @@ public class dialogRegister extends javax.swing.JDialog {
         });
         JPBG.add(jLLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 445, -1, -1));
 
+        jTFEmail.setBackground(new java.awt.Color(33, 33, 33));
+        jTFEmail.setFont(new java.awt.Font("Lato", 1, 14)); // NOI18N
+        jTFEmail.setForeground(new java.awt.Color(192, 192, 192));
+        jTFEmail.setText("E-mail");
+        jTFEmail.setBorder(null);
+        jTFEmail.setOpaque(true);
+        jTFEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFEmailFocusLost(evt);
+            }
+        });
+        jTFEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jTFEmailMouseExited(evt);
+            }
+        });
+        JPBG.add(jTFEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 230, 250, 25));
+
+        jTFUser.setBackground(new java.awt.Color(33, 33, 33));
+        jTFUser.setFont(new java.awt.Font("Lato", 1, 14)); // NOI18N
+        jTFUser.setForeground(new java.awt.Color(192, 192, 192));
+        jTFUser.setText("Username");
+        jTFUser.setBorder(null);
+        jTFUser.setOpaque(true);
+        jTFUser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFUserFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFUserFocusLost(evt);
+            }
+        });
+        JPBG.add(jTFUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 284, 250, 25));
+
+        jTPassword.setBackground(new java.awt.Color(33, 33, 33));
+        jTPassword.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTPassword.setForeground(new java.awt.Color(192, 192, 192));
+        jTPassword.setText("Password");
+        jTPassword.setBorder(null);
+        jTPassword.setCaretColor(new java.awt.Color(230, 230, 230));
+        jTPassword.setEchoChar((char)0);
+        jTPassword.setOpaque(true);
+        jTPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTPasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTPasswordFocusLost(evt);
+            }
+        });
+        JPBG.add(jTPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 338, 230, 25));
+
         jLBG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Register/Register.png"))); // NOI18N
         JPBG.add(jLBG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -170,27 +177,11 @@ public class dialogRegister extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTFEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusGained
-        jLBG.setIcon(new ImageIcon("src/Images/Register/Register.png"));
-//        jLErrorMail.setText("");
-        if ((jTFEmail.getText().equals("E-mail"))) {
-            jTFEmail.setText("");
-        }
-    }//GEN-LAST:event_jTFEmailFocusGained
-
-    private void jTFEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusLost
-        if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", jTFEmail.getText()))){
-            jLBG.setIcon(new ImageIcon("src/Images/Register/EmailErrorR.png"));
-//            jLErrorMail.setText("Invalid E-mail");
-            jTFEmail.setText("E-mail");
-        }
-    }//GEN-LAST:event_jTFEmailFocusLost
-
     private void jLPEyeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLPEyeMouseClicked
         jLPEyeClose.setVisible(true);
         jLPEyeClose.setEnabled(true);
-        JTPassword.setFont(new Font("Lato", Font.BOLD, 14));
-        JTPassword.setEchoChar((char)0);
+        jTPassword.setFont(new Font("Lato", Font.BOLD, 14));
+        jTPassword.setEchoChar((char)0);
         jLPEye.setVisible(false);
         jLPEye.setEnabled(false);
     }//GEN-LAST:event_jLPEyeMouseClicked
@@ -198,25 +189,6 @@ public class dialogRegister extends javax.swing.JDialog {
     private void jLPEyeCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLPEyeCloseMouseClicked
         ShowOff();
     }//GEN-LAST:event_jLPEyeCloseMouseClicked
-
-    private void JTPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTPasswordFocusGained
-        ShowOff();
-        jLBG.setIcon(new ImageIcon("src/Images/Register/Register.png"));
-        String pass = String.valueOf(JTPassword.getPassword());
-        if (pass.toLowerCase().equals("password")) {
-            JTPassword.setText("");            
-        }
-        
-    }//GEN-LAST:event_JTPasswordFocusGained
-
-    private void JTPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTPasswordFocusLost
-        String pass = String.valueOf(JTPassword.getPassword());
-        if (((pass.toLowerCase().equals("password")) || (pass.toLowerCase().equals("")))) {
-            jLBG.setIcon(new ImageIcon("src/Images/Register/PasswordErrorR.png"));
-            JTPassword.setText("Password");
-            JTPassword.setEchoChar((char)0);
-        }
-    }//GEN-LAST:event_JTPasswordFocusLost
 
     private void jBSignUpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBSignUpMouseEntered
         jBSignUp.setIcon(new ImageIcon("Src/Images/Register/SignUpPressed.png"));
@@ -250,6 +222,56 @@ public class dialogRegister extends javax.swing.JDialog {
         dispose();
         new dialogLogin(null, true).setVisible(true);
     }//GEN-LAST:event_jLLoginMouseClicked
+
+    private void jTFEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusGained
+        jLBG.setIcon(new ImageIcon("src/Images/Register/Register.png"));
+        //        jLErrorMail.setText("");
+        if (jTFEmail.getText().equals("E-mail")) {
+            jTFEmail.setText("");
+        }
+    }//GEN-LAST:event_jTFEmailFocusGained
+
+    private void jTFEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusLost
+        if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", jTFEmail.getText()))){
+            jLBG.setIcon(new ImageIcon("src/Images/Register/EmailErrorR.png"));
+            //jLErrorMail.setText("Invalid E-mail");
+            jTFEmail.setText("E-mail");
+        }
+    }//GEN-LAST:event_jTFEmailFocusLost
+
+    private void jTFUserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUserFocusGained
+        if (jTFUser.getText().toLowerCase().equals("username")) {
+            jTFUser.setText("");
+        }
+    }//GEN-LAST:event_jTFUserFocusGained
+
+    private void jTFUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUserFocusLost
+        if ((jTFUser.getText().toLowerCase().equals("username") || (jTFUser.getText().toLowerCase().equals("")))) {
+            jLBG.setIcon(new ImageIcon("src/Images/Register/UserErrorR.png"));
+            jTFUser.setText("Username");
+        }
+    }//GEN-LAST:event_jTFUserFocusLost
+
+    private void jTPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPasswordFocusGained
+        ShowOff();
+        String pass = String.valueOf(jTPassword.getPassword());
+        if (pass.toLowerCase().equals("password")) {
+            jTPassword.setText("");
+        }
+    }//GEN-LAST:event_jTPasswordFocusGained
+
+    private void jTPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPasswordFocusLost
+        String pass = String.valueOf(jTPassword.getPassword());
+        if (((pass.toLowerCase().equals("password")) || (pass.toLowerCase().equals("")))) {
+            jLBG.setIcon(new ImageIcon("src/Images/Register/PasswordErrorR.png"));
+            jTPassword.setText("Password");
+            jTPassword.setEchoChar((char)0);
+        }
+    }//GEN-LAST:event_jTPasswordFocusLost
+
+    private void jTFEmailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFEmailMouseExited
+
+    }//GEN-LAST:event_jTFEmailMouseExited
 
     /**
      * @param args the command line arguments
@@ -296,15 +318,14 @@ public class dialogRegister extends javax.swing.JDialog {
     private void ShowOff(){
         jLPEye.setVisible(true);
         jLPEye.setEnabled(true);
-        JTPassword.setFont(new Font("Tahoma", Font.BOLD, 12));
-        JTPassword.setEchoChar('\u25cf');
+        jTPassword.setFont(new Font("Tahoma", Font.BOLD, 12));
+        jTPassword.setEchoChar('\u25cf');
         jLPEyeClose.setVisible(false);
         jLPEyeClose.setEnabled(false);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPBG;
-    private javax.swing.JPasswordField JTPassword;
     private javax.swing.JButton jBSignUp;
     private javax.swing.JLabel jLBG;
     private javax.swing.JLabel jLLogin;
@@ -312,5 +333,6 @@ public class dialogRegister extends javax.swing.JDialog {
     private javax.swing.JLabel jLPEyeClose;
     private javax.swing.JTextField jTFEmail;
     private javax.swing.JTextField jTFUser;
+    private javax.swing.JPasswordField jTPassword;
     // End of variables declaration//GEN-END:variables
 }
