@@ -215,7 +215,7 @@ public class dialogRegister extends javax.swing.JDialog {
 
     private void jLLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLLoginMouseClicked
         new dialogLogin(null, true).setVisible(true);
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_jLLoginMouseClicked
 
     private void jTFEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusGained

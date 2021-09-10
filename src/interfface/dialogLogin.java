@@ -8,6 +8,8 @@ package interfface;
 import interfface.dialogRegister;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 
@@ -45,6 +47,7 @@ public class dialogLogin extends javax.swing.JDialog {
         jLPEye = new javax.swing.JLabel();
         jLPEyeClose = new javax.swing.JLabel();
         jLForgot = new javax.swing.JLabel();
+        jLErrorMail = new javax.swing.JLabel();
         LoginBG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -155,6 +158,9 @@ public class dialogLogin extends javax.swing.JDialog {
         jLForgot.setText("Forgot Password?");
         jLForgot.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLForgot.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLForgotMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLForgotMouseEntered(evt);
             }
@@ -163,6 +169,11 @@ public class dialogLogin extends javax.swing.JDialog {
             }
         });
         jPBG.add(jLForgot, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 317, -1, -1));
+
+        jLErrorMail.setFont(new java.awt.Font("Lato", 1, 13)); // NOI18N
+        jLErrorMail.setForeground(new java.awt.Color(237, 66, 69));
+        jLErrorMail.setBorder(null);
+        jPBG.add(jLErrorMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 206, -1, -1));
 
         LoginBG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Login/Login.png"))); // NOI18N
         jPBG.add(LoginBG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -259,8 +270,24 @@ public class dialogLogin extends javax.swing.JDialog {
 
     private void jLSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignUpMouseClicked
         new dialogRegister(null, true).setVisible(true);
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_jLSignUpMouseClicked
+
+    private void jLForgotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLForgotMouseClicked
+//        try {           
+//            if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", jTFEmail.getText()))){
+//                LoginBG.setIcon(new ImageIcon("src/Images/Login/ForgotPasswordError.png"));
+//                jLErrorMail.setText("Verify your e-mail");
+//                Thread.sleep(3000);
+//                LoginBG.setIcon(new ImageIcon("src/Images/Login/Login.png"));
+//                return;
+//            }                           
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(dialogLogin.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        new dialogForgot(null, true).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLForgotMouseClicked
 
     /**
      * @param args the command line arguments
@@ -308,6 +335,7 @@ public class dialogLogin extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField JTPassword;
     private javax.swing.JLabel LoginBG;
+    private javax.swing.JLabel jLErrorMail;
     private javax.swing.JLabel jLForgot;
     private javax.swing.JLabel jLPEye;
     private javax.swing.JLabel jLPEyeClose;
