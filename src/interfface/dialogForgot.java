@@ -55,6 +55,9 @@ public class dialogForgot extends javax.swing.JDialog {
 
         jLConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLConfirm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLConfirmMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLConfirmMouseEntered(evt);
             }
@@ -239,6 +242,13 @@ public class dialogForgot extends javax.swing.JDialog {
         new dialogLogin(null, true).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLBackLoginMouseClicked
+
+    private void jLConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLConfirmMouseClicked
+        String code = jFTField1.getText() + jFTField2.getText() + jFTField3.getText() + jFTField4.getText() + jFTField5.getText() + jFTField6.getText();
+        System.out.println(code);
+        new dialogNewPass(null, true).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLConfirmMouseClicked
    
     private void jTextFieldKeyTyped(java.awt.event.KeyEvent evt) {                                     
         if (evt.getSource() instanceof JTextField) {

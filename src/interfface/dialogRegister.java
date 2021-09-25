@@ -1,10 +1,15 @@
 package interfface;
 
+import connection.ConnectionSQL;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
-
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,9 +22,10 @@ import javax.swing.ImageIcon;
  */
 public class dialogRegister extends javax.swing.JDialog {
     int xMouse, yMouse;
-    /**
-     * Creates new form dialogRegister
-     */
+    ImageIcon emailError = new ImageIcon("src/Images/Register/EmailErrorR.png");
+    ImageIcon passError = new ImageIcon("src/Images/Register/PasswordErrorR.png");
+    ImageIcon userError = new ImageIcon("src/Images/Register/UserErrorR.png");
+    ImageIcon register = new ImageIcon("src/Images/Register/Register.png");
     public dialogRegister(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -41,10 +47,12 @@ public class dialogRegister extends javax.swing.JDialog {
         jLPEye = new javax.swing.JLabel();
         jLPEyeClose = new javax.swing.JLabel();
         jBSignUp = new javax.swing.JButton();
-        jLLogin = new javax.swing.JLabel();
+        jBLogin = new javax.swing.JButton();
         jTFEmail = new javax.swing.JTextField();
         jTFUser = new javax.swing.JTextField();
         jTPassword = new javax.swing.JPasswordField();
+        jLSuccess = new javax.swing.JLabel();
+        jLErrorEmail = new javax.swing.JLabel();
         jLBG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -94,24 +102,32 @@ public class dialogRegister extends javax.swing.JDialog {
                 jBSignUpMouseExited(evt);
             }
         });
-        JPBG.add(jBSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 403, -1, -1));
-
-        jLLogin.setFont(new java.awt.Font("Lato Black", 1, 13)); // NOI18N
-        jLLogin.setForeground(new java.awt.Color(64, 154, 146));
-        jLLogin.setText("Already have an account?");
-        jLLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLLoginMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLLoginMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLLoginMouseExited(evt);
+        jBSignUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSignUpActionPerformed(evt);
             }
         });
-        JPBG.add(jLLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 445, -1, -1));
+        JPBG.add(jBSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 403, -1, -1));
+
+        jBLogin.setFont(new java.awt.Font("Lato Black", 1, 13)); // NOI18N
+        jBLogin.setForeground(new java.awt.Color(64, 154, 146));
+        jBLogin.setText("Already have an account?");
+        jBLogin.setBorder(null);
+        jBLogin.setContentAreaFilled(false);
+        jBLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jBLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jBLoginMouseExited(evt);
+            }
+        });
+        jBLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLoginActionPerformed(evt);
+            }
+        });
+        JPBG.add(jBLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 445, -1, -1));
 
         jTFEmail.setBackground(new java.awt.Color(33, 33, 33));
         jTFEmail.setFont(new java.awt.Font("Lato", 1, 14)); // NOI18N
@@ -125,6 +141,11 @@ public class dialogRegister extends javax.swing.JDialog {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTFEmailFocusLost(evt);
+            }
+        });
+        jTFEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFEmailKeyTyped(evt);
             }
         });
         JPBG.add(jTFEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 230, 250, 25));
@@ -141,6 +162,11 @@ public class dialogRegister extends javax.swing.JDialog {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTFUserFocusLost(evt);
+            }
+        });
+        jTFUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFUserKeyTyped(evt);
             }
         });
         JPBG.add(jTFUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 284, 250, 25));
@@ -161,7 +187,20 @@ public class dialogRegister extends javax.swing.JDialog {
                 jTPasswordFocusLost(evt);
             }
         });
+        jTPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTPasswordKeyTyped(evt);
+            }
+        });
         JPBG.add(jTPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 338, 230, 25));
+
+        jLSuccess.setFont(new java.awt.Font("Lato", 1, 14)); // NOI18N
+        jLSuccess.setForeground(new java.awt.Color(0, 211, 128));
+        JPBG.add(jLSuccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, -1, -1));
+
+        jLErrorEmail.setFont(new java.awt.Font("Lato", 1, 13)); // NOI18N
+        jLErrorEmail.setForeground(new java.awt.Color(237, 66, 69));
+        JPBG.add(jLErrorEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 208, -1, -1));
 
         jLBG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Register/Register.png"))); // NOI18N
         JPBG.add(jLBG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -185,14 +224,6 @@ public class dialogRegister extends javax.swing.JDialog {
         ShowOff();
     }//GEN-LAST:event_jLPEyeCloseMouseClicked
 
-    private void jBSignUpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBSignUpMouseEntered
-        jBSignUp.setIcon(new ImageIcon("Src/Images/Register/SignUpPressed.png"));
-    }//GEN-LAST:event_jBSignUpMouseEntered
-
-    private void jBSignUpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBSignUpMouseExited
-        jBSignUp.setIcon(null);
-    }//GEN-LAST:event_jBSignUpMouseExited
-
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
@@ -205,52 +236,40 @@ public class dialogRegister extends javax.swing.JDialog {
         yMouse = evt.getY();
     }//GEN-LAST:event_formMousePressed
 
-    private void jLLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLLoginMouseEntered
-        jLLogin.setText("<HTML><U>Already have an account?</UL></HTML>");
-    }//GEN-LAST:event_jLLoginMouseEntered
-
-    private void jLLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLLoginMouseExited
-        jLLogin.setText("Already have an account?");
-    }//GEN-LAST:event_jLLoginMouseExited
-
-    private void jLLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLLoginMouseClicked
-        new dialogLogin(null, true).setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jLLoginMouseClicked
-
     private void jTFEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusGained
-        jLBG.setIcon(new ImageIcon("src/Images/Register/Register.png"));
-        //        jLErrorMail.setText("");
-        if (jTFEmail.getText().equals("E-mail")) {
+        jLBG.setIcon(register);
+        jLErrorEmail.setText("");
+        if (jTFEmail.getText().equals("E-mail") || (jTFEmail.getText().equals(""))) {
             jTFEmail.setText("");
         }
     }//GEN-LAST:event_jTFEmailFocusGained
 
     private void jTFEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusLost
         if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", jTFEmail.getText()))){
-            jLBG.setIcon(new ImageIcon("src/Images/Register/EmailErrorR.png"));
-            //jLErrorMail.setText("Invalid E-mail");
+            jLBG.setIcon(emailError);
+            jLErrorEmail.setText("Invalid E-mail");
             jTFEmail.setText("E-mail");
         }
     }//GEN-LAST:event_jTFEmailFocusLost
 
     private void jTFUserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUserFocusGained
-        if (jTFUser.getText().toLowerCase().equals("username")) {
+        if ((jTFUser.getText().toLowerCase().equals("username") || (jTFUser.getText().toLowerCase().equals("")))) {
             jTFUser.setText("");
         }
     }//GEN-LAST:event_jTFUserFocusGained
 
     private void jTFUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUserFocusLost
         if ((jTFUser.getText().toLowerCase().equals("username") || (jTFUser.getText().toLowerCase().equals("")))) {
-            jLBG.setIcon(new ImageIcon("src/Images/Register/UserErrorR.png"));
+            jLBG.setIcon(userError);
             jTFUser.setText("Username");
         }
     }//GEN-LAST:event_jTFUserFocusLost
 
     private void jTPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPasswordFocusGained
         ShowOff();
+        jLErrorEmail.setText("");
         String pass = String.valueOf(jTPassword.getPassword());
-        if (pass.toLowerCase().equals("password")) {
+        if (((pass.toLowerCase().equals("password")) || (pass.toLowerCase().equals("")))) {
             jTPassword.setText("");
         }
     }//GEN-LAST:event_jTPasswordFocusGained
@@ -258,11 +277,113 @@ public class dialogRegister extends javax.swing.JDialog {
     private void jTPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPasswordFocusLost
         String pass = String.valueOf(jTPassword.getPassword());
         if (((pass.toLowerCase().equals("password")) || (pass.toLowerCase().equals("")))) {
-            jLBG.setIcon(new ImageIcon("src/Images/Register/PasswordErrorR.png"));
+            jLBG.setIcon(passError);
             jTPassword.setText("Password");
             jTPassword.setEchoChar((char)0);
         }
     }//GEN-LAST:event_jTPasswordFocusLost
+
+    private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLoginActionPerformed
+        new dialogLogin(null, true).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBLoginActionPerformed
+
+    private void jBLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLoginMouseEntered
+        jBLogin.setText("<HTML><U>Already have an account?</UL></HTML>");
+    }//GEN-LAST:event_jBLoginMouseEntered
+
+    private void jBLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLoginMouseExited
+        jBLogin.setText("Already have an account?");
+    }//GEN-LAST:event_jBLoginMouseExited
+    
+    private void jBSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSignUpActionPerformed
+        String email = jTFEmail.getText();
+        String user = jTFUser.getText();
+        String pass = String.valueOf(jTPassword.getPassword()); 
+        
+        if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", email))){
+            jLBG.setIcon(emailError);
+            jLErrorEmail.setText("Invalid E-mail");
+            return;
+        }
+
+        if ((user.trim().isEmpty()) || (user.toLowerCase().equals("username"))) {
+            jLBG.setIcon(userError);
+            jTFUser.setText("Username");
+            return;
+        }
+
+        if (((pass.toLowerCase().equals("password")) || (pass.toLowerCase().equals("")))) {
+            jLBG.setIcon(passError);
+            jTPassword.setText("Password");
+            jTPassword.setEchoChar((char)0);
+            return;
+        }
+        
+        String sql = "SELECT email FROM USERN WHERE email = ?";
+        PreparedStatement prepStmt;
+        
+        try {
+            prepStmt = ConnectionSQL.getConnection().prepareStatement(sql);
+            prepStmt.setString(1, email);
+            ResultSet rs = prepStmt.executeQuery();
+            if (rs.next()) {
+              jLBG.setIcon(emailError);  
+              jLErrorEmail.setText("E-mail Already Exists");
+              return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(dialogRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        PreparedStatement ps;
+        String query = "INSERT INTO usern(email, username, password) VALUES(?, ?, ?)";
+        
+        try {
+            ps = ConnectionSQL.getConnection().prepareStatement(query);
+            
+            ps.setString(1, email);
+            ps.setString(2, user);
+            ps.setString(3, pass);
+            if(ps.executeUpdate() > 0){
+                jLSuccess.setText("Successfully Registered");  
+                jTFUser.setText("Username");
+                jTFEmail.setText("E-mail");
+                jTPassword.setText("Password");
+                jTPassword.setEchoChar((char)0);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(dialogRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jBSignUpActionPerformed
+
+    private void jBSignUpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBSignUpMouseExited
+        jBSignUp.setIcon(null);
+    }//GEN-LAST:event_jBSignUpMouseExited
+
+    private void jBSignUpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBSignUpMouseEntered
+        jBSignUp.setIcon(new ImageIcon("Src/Images/Register/SignUpPressed.png"));
+    }//GEN-LAST:event_jBSignUpMouseEntered
+
+    private void jTFUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFUserKeyTyped
+        if (jTFUser.getText().toLowerCase().equals("")) {
+            jLBG.setIcon(register);    
+        }
+    }//GEN-LAST:event_jTFUserKeyTyped
+
+    private void jTPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPasswordKeyTyped
+        String pass = String.valueOf(jTPassword.getPassword());
+        if (pass.toLowerCase().equals("")) {
+            jLBG.setIcon(register);    
+        }
+    }//GEN-LAST:event_jTPasswordKeyTyped
+
+    private void jTFEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFEmailKeyTyped
+        if (jTFEmail.getText().toLowerCase().equals("")) {
+            jLBG.setIcon(register);    
+        }
+    }//GEN-LAST:event_jTFEmailKeyTyped
 
     /**
      * @param args the command line arguments
@@ -315,13 +436,16 @@ public class dialogRegister extends javax.swing.JDialog {
         jLPEyeClose.setEnabled(false);
     }
     
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPBG;
+    private javax.swing.JButton jBLogin;
     private javax.swing.JButton jBSignUp;
     private javax.swing.JLabel jLBG;
-    private javax.swing.JLabel jLLogin;
+    private javax.swing.JLabel jLErrorEmail;
     private javax.swing.JLabel jLPEye;
     private javax.swing.JLabel jLPEyeClose;
+    private javax.swing.JLabel jLSuccess;
     private javax.swing.JTextField jTFEmail;
     private javax.swing.JTextField jTFUser;
     private javax.swing.JPasswordField jTPassword;

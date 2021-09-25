@@ -91,7 +91,7 @@ public class dialogLogin extends javax.swing.JDialog {
         JTPassword.setText("Password");
         JTPassword.setBorder(null);
         JTPassword.setCaretColor(new java.awt.Color(230, 230, 230));
-        JTPassword.setEchoChar('\u25cf');
+        JTPassword.setEchoChar((char)0);
         JTPassword.setFocusAccelerator('8');
         JTPassword.setOpaque(true);
         JTPassword.setPreferredSize(new java.awt.Dimension(224, 25));
@@ -260,13 +260,10 @@ public class dialogLogin extends javax.swing.JDialog {
     private void JTPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTPasswordFocusLost
         String pass = String.valueOf(JTPassword.getPassword());
         if (((pass.toLowerCase().equals("")) || (pass.toLowerCase().equals("password")))) {
-            JTPassword.setText("Password");     
+            JTPassword.setText("Password");  
+            JTPassword.setEchoChar((char)0);
         }
     }//GEN-LAST:event_JTPasswordFocusLost
-
-    private void jLSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignInMouseClicked
-        
-    }//GEN-LAST:event_jLSignInMouseClicked
 
     private void jLSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignUpMouseClicked
         new dialogRegister(null, true).setVisible(true);
@@ -274,20 +271,23 @@ public class dialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_jLSignUpMouseClicked
 
     private void jLForgotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLForgotMouseClicked
-//        try {           
-//            if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", jTFEmail.getText()))){
-//                LoginBG.setIcon(new ImageIcon("src/Images/Login/ForgotPasswordError.png"));
-//                jLErrorMail.setText("Verify your e-mail");
-//                Thread.sleep(3000);
-//                LoginBG.setIcon(new ImageIcon("src/Images/Login/Login.png"));
-//                return;
-//            }                           
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(dialogLogin.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {           
+            if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", jTFEmail.getText()))){
+                LoginBG.setIcon(new ImageIcon("src/Images/Login/ForgotPasswordError.png"));
+                Thread.sleep(100);
+                jLErrorMail.setText("Verify your e-mail");
+                return;
+            }                           
+        } catch (InterruptedException ex) {
+            Logger.getLogger(dialogLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         new dialogForgot(null, true).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLForgotMouseClicked
+
+    private void jLSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignInMouseClicked
+        
+    }//GEN-LAST:event_jLSignInMouseClicked
 
     /**
      * @param args the command line arguments

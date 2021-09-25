@@ -94,7 +94,7 @@
               <Color blue="e6" green="e6" red="e6" type="rgb"/>
             </Property>
             <Property name="echoChar" type="char" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="&apos;\u25cf&apos;" type="code"/>
+              <Connection code="(char)0" type="code"/>
             </Property>
             <Property name="focusAccelerator" type="char" value="8"/>
             <Property name="opaque" type="boolean" value="true"/>
