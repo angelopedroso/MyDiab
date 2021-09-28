@@ -3,26 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfface;
+package interfface.Login_Variant;
 
+import abstractt.Data;
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.ImageIcon;
-
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author angel
  */
 public class dialogNewPass extends javax.swing.JDialog {
-
-    /**
-     * Creates new form dialogNewPass
-     */
+    Connection con = null;
+    ResultSet rs = null;
+    PreparedStatement ps = null;
+    ImageIcon passerror = new ImageIcon("src/Images/Forgot/NewPasswordError.png");
+    ImageIcon pass = new ImageIcon("src/Images/Forgot/NewPassword.png");
+    
     public dialogNewPass(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setBackground(new Color(0,0,0,0));
         jPBG.setBackground(new Color(0,0,0,0));
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,6 +49,7 @@ public class dialogNewPass extends javax.swing.JDialog {
         jLConfirm = new javax.swing.JLabel();
         jTPassword = new javax.swing.JPasswordField();
         jTPasswordConfirm = new javax.swing.JPasswordField();
+        jLSuccess = new javax.swing.JLabel();
         jLBG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -96,6 +109,10 @@ public class dialogNewPass extends javax.swing.JDialog {
         });
         jPBG.add(jTPasswordConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 350, 250, 25));
 
+        jLSuccess.setFont(new java.awt.Font("Lato", 1, 14)); // NOI18N
+        jLSuccess.setForeground(new java.awt.Color(0, 211, 128));
+        jPBG.add(jLSuccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, -1, -1));
+
         jLBG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Forgot/NewPassword.png"))); // NOI18N
         jPBG.add(jLBG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -106,7 +123,28 @@ public class dialogNewPass extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLConfirmMouseClicked
-
+        String pass = String.valueOf(jTPassword.getPassword());
+        String newpass = String.valueOf(jTPasswordConfirm.getPassword());
+        if (pass.equals(newpass)) {
+            try {
+                String updateQuery = "UPDATE usern SET password = MD5(?) WHERE email = ?";
+                con = DriverManager.getConnection("jdbc:postgresql://localhost/MYDIAB", "postgres", "321123");
+                ps = con.prepareStatement(updateQuery);
+                ps.setString(1, newpass);
+                ps.setString(2, Data.getEmail());
+                ps.executeUpdate();              
+            } catch (SQLException ex) {
+                System.out.println("Error: "+ex);
+            }
+        }else{
+            jLBG.setIcon(passerror);
+            jTPasswordConfirm.setText("");
+            jTPasswordConfirm.requestFocus();
+            return;
+        }
+        
+        new dialogLogin(null, true).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLConfirmMouseClicked
 
     private void jLConfirmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLConfirmMouseEntered
@@ -119,6 +157,8 @@ public class dialogNewPass extends javax.swing.JDialog {
 
     private void jTPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPasswordFocusGained
         String pass = String.valueOf(jTPassword.getPassword());
+        jTPassword.setFont(new Font("Tahoma", Font.BOLD, 12));
+        jTPassword.setEchoChar('\u25cf');
         if (pass.trim().toLowerCase().equals("new password")) {
             jTPassword.setText("");
         }
@@ -134,6 +174,8 @@ public class dialogNewPass extends javax.swing.JDialog {
 
     private void jTPasswordConfirmFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPasswordConfirmFocusGained
         String pass = String.valueOf(jTPasswordConfirm.getPassword());
+        jTPasswordConfirm.setFont(new Font("Tahoma", Font.BOLD, 12));
+        jTPasswordConfirm.setEchoChar('\u25cf');        
         if (pass.trim().toLowerCase().equals("confirm password")) {
             jTPasswordConfirm.setText("");
         }
@@ -149,8 +191,9 @@ public class dialogNewPass extends javax.swing.JDialog {
         }
         
         if (!newpass.equals(pass)) {
-            jLBG.setIcon(new ImageIcon("src/Images/Forgot/NewPasswordError.png"));
+            jLBG.setIcon(passerror);
             jTPasswordConfirm.setText("Confirm Password");
+            jTPasswordConfirm.requestFocus();
             return;
         }
     }//GEN-LAST:event_jTPasswordConfirmFocusLost
@@ -200,6 +243,7 @@ public class dialogNewPass extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLBG;
     private javax.swing.JLabel jLConfirm;
+    private javax.swing.JLabel jLSuccess;
     private javax.swing.JPanel jPBG;
     private javax.swing.JPasswordField jTPassword;
     private javax.swing.JPasswordField jTPasswordConfirm;

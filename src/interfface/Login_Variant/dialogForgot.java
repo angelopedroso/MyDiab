@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfface;
+package interfface.Login_Variant;
 
+import abstractt.Data;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -14,6 +15,8 @@ import javax.swing.JTextField;
  * @author angel
  */
 public class dialogForgot extends javax.swing.JDialog {
+    ImageIcon passError = new ImageIcon("src/Images/Forgot/ForgotError.png");
+    ImageIcon Forgot = new ImageIcon("src/Images/Forgot/Forgot.png");
 
     /**
      * Creates new form dialogForgot
@@ -24,6 +27,7 @@ public class dialogForgot extends javax.swing.JDialog {
         setBackground(new Color(0,0,0,0));
         JPBG.setBackground(new Color(0,0,0,0));
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -227,7 +231,10 @@ public class dialogForgot extends javax.swing.JDialog {
     }//GEN-LAST:event_jFTField5KeyTyped
 
     private void jFTField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTField1KeyTyped
-        jTextFieldKeyTyped(evt);         
+        if (jFTField1.equals("")) {
+            JLBG.setIcon(Forgot);           
+        }
+        jTextFieldKeyTyped(evt); 
     }//GEN-LAST:event_jFTField1KeyTyped
 
     private void jLBackLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLBackLoginMouseEntered
@@ -244,10 +251,26 @@ public class dialogForgot extends javax.swing.JDialog {
     }//GEN-LAST:event_jLBackLoginMouseClicked
 
     private void jLConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLConfirmMouseClicked
-        String code = jFTField1.getText() + jFTField2.getText() + jFTField3.getText() + jFTField4.getText() + jFTField5.getText() + jFTField6.getText();
-        System.out.println(code);
-        new dialogNewPass(null, true).setVisible(true);
-        dispose();
+        String code = jFTField1.getText()+jFTField2.getText()+jFTField3.getText()+jFTField4.getText()+jFTField5.getText()+jFTField6.getText();
+        
+        if (code.equals("")) {
+            System.out.println("null");
+            return;
+        }
+        
+        if (code.equals(Data.getRdCode())) {
+            new dialogNewPass(null, true).setVisible(true);
+            this.dispose();
+        }else{
+            JLBG.setIcon(passError);
+            jFTField1.setText("");
+            jFTField2.setText("");
+            jFTField3.setText("");
+            jFTField4.setText("");
+            jFTField5.setText("");
+            jFTField6.setText("");
+            jFTField1.requestFocus();
+        }
     }//GEN-LAST:event_jLConfirmMouseClicked
    
     private void jTextFieldKeyTyped(java.awt.event.KeyEvent evt) {                                     

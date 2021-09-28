@@ -1,4 +1,4 @@
-package interfface;
+package interfface.Login_Variant;
 
 import connection.ConnectionSQL;
 import java.awt.Color;
@@ -114,6 +114,7 @@ public class dialogRegister extends javax.swing.JDialog {
         jBLogin.setText("Already have an account?");
         jBLogin.setBorder(null);
         jBLogin.setContentAreaFilled(false);
+        jBLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jBLoginMouseEntered(evt);
@@ -297,7 +298,7 @@ public class dialogRegister extends javax.swing.JDialog {
     }//GEN-LAST:event_jBLoginMouseExited
     
     private void jBSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSignUpActionPerformed
-        String email = jTFEmail.getText();
+        String email = jTFEmail.getText().toLowerCase();
         String user = jTFUser.getText();
         String pass = String.valueOf(jTPassword.getPassword()); 
         
@@ -338,7 +339,7 @@ public class dialogRegister extends javax.swing.JDialog {
 
         
         PreparedStatement ps;
-        String query = "INSERT INTO usern(email, username, password) VALUES(?, ?, ?)";
+        String query = "INSERT INTO usern(email, username, password) VALUES(?, ?, MD5(?))";
         
         try {
             ps = ConnectionSQL.getConnection().prepareStatement(query);

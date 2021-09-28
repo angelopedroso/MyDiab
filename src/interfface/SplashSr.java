@@ -5,6 +5,7 @@
  */
 package interfface;
 
+import interfface.Login_Variant.dialogLogin;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
