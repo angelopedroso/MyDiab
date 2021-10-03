@@ -7,7 +7,9 @@ package interfface.Login_Variant;
 
 import abstractt.Data;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 
 /**
@@ -15,6 +17,7 @@ import javax.swing.JTextField;
  * @author angel
  */
 public class dialogForgot extends javax.swing.JDialog {
+    int xMouse, yMouse;
     ImageIcon passError = new ImageIcon("src/Images/Forgot/ForgotError.png");
     ImageIcon Forgot = new ImageIcon("src/Images/Forgot/Forgot.png");
 
@@ -52,6 +55,16 @@ public class dialogForgot extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1166, 668));
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         JPBG.setBorder(null);
@@ -178,6 +191,11 @@ public class dialogForgot extends javax.swing.JDialog {
         jFTField6.setText("null");
         jFTField6.setToolTipText(null);
         jFTField6.setFont(new java.awt.Font("Lato", 1, 18)); // NOI18N
+        jFTField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFTField6KeyTyped(evt);
+            }
+        });
         JPBG.add(jFTField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(686, 371, 30, 30));
 
         jLBackLogin.setFont(new java.awt.Font("Lato", 1, 13)); // NOI18N
@@ -215,18 +233,38 @@ public class dialogForgot extends javax.swing.JDialog {
     }//GEN-LAST:event_jLConfirmMouseExited
           
     private void jFTField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTField2KeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+            jFTField1.requestFocus();
+            jFTField2.setValue("");
+            return;
+        }        
         jTextFieldKeyTyped(evt);     
     }//GEN-LAST:event_jFTField2KeyTyped
 
     private void jFTField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTField3KeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+            jFTField2.requestFocus();
+            jFTField3.setValue("");
+            return;
+        }        
         jTextFieldKeyTyped(evt);       
     }//GEN-LAST:event_jFTField3KeyTyped
 
     private void jFTField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTField4KeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+            jFTField3.requestFocus();
+            jFTField4.setValue("");
+            return;
+        }        
         jTextFieldKeyTyped(evt);  
     }//GEN-LAST:event_jFTField4KeyTyped
 
     private void jFTField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTField5KeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+            jFTField4.requestFocus();
+            jFTField5.setValue("");
+            return;
+        }        
         jTextFieldKeyTyped(evt);     
     }//GEN-LAST:event_jFTField5KeyTyped
 
@@ -234,6 +272,11 @@ public class dialogForgot extends javax.swing.JDialog {
         if (jFTField1.equals("")) {
             JLBG.setIcon(Forgot);           
         }
+        
+        if (evt.getKeyChar()== KeyEvent.VK_BACK_SPACE) {
+            jFTField1.setValue("");
+            return;
+        }             
         jTextFieldKeyTyped(evt); 
     }//GEN-LAST:event_jFTField1KeyTyped
 
@@ -246,8 +289,8 @@ public class dialogForgot extends javax.swing.JDialog {
     }//GEN-LAST:event_jLBackLoginMouseExited
 
     private void jLBackLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLBackLoginMouseClicked
-        new dialogLogin(null, true).setVisible(true);
         this.dispose();
+        new dialogLogin(null, true).setVisible(true);
     }//GEN-LAST:event_jLBackLoginMouseClicked
 
     private void jLConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLConfirmMouseClicked
@@ -263,19 +306,39 @@ public class dialogForgot extends javax.swing.JDialog {
             this.dispose();
         }else{
             JLBG.setIcon(passError);
-            jFTField1.setText("");
-            jFTField2.setText("");
-            jFTField3.setText("");
-            jFTField4.setText("");
-            jFTField5.setText("");
-            jFTField6.setText("");
+            jFTField1.setValue("");
+            jFTField2.setValue("");
+            jFTField3.setValue("");
+            jFTField4.setValue("");
+            jFTField5.setValue("");
+            jFTField6.setValue("");
             jFTField1.requestFocus();
         }
     }//GEN-LAST:event_jLConfirmMouseClicked
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_formMouseDragged
+
+    private void jFTField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTField6KeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+            jFTField5.requestFocus();
+            jFTField6.setValue("");
+            return;
+        }
+    }//GEN-LAST:event_jFTField6KeyTyped
    
     private void jTextFieldKeyTyped(java.awt.event.KeyEvent evt) {                                     
-        if (evt.getSource() instanceof JTextField) {
-            JTextField campo = (JTextField) evt.getSource();
+        if (evt.getSource() instanceof JFormattedTextField) {
+            JFormattedTextField campo = (JFormattedTextField) evt.getSource();
             String chara = campo.getText();
             if (chara.length() >= 1) {
                 campo.transferFocus();

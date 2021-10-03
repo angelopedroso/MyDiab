@@ -14,16 +14,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
  * @author angel
  */
 public class dialogNewPass extends javax.swing.JDialog {
+    int xMouse, yMouse;
     Connection con = null;
-    ResultSet rs = null;
     PreparedStatement ps = null;
     ImageIcon passerror = new ImageIcon("src/Images/Forgot/NewPasswordError.png");
     ImageIcon pass = new ImageIcon("src/Images/Forgot/NewPassword.png");
@@ -54,6 +51,16 @@ public class dialogNewPass extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPBG.setPreferredSize(new java.awt.Dimension(1168, 668));
@@ -197,6 +204,18 @@ public class dialogNewPass extends javax.swing.JDialog {
             return;
         }
     }//GEN-LAST:event_jTPasswordConfirmFocusLost
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_formMouseDragged
 
     /**
      * @param args the command line arguments

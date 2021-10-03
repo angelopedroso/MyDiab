@@ -214,7 +214,7 @@ public class dialogLogin extends javax.swing.JDialog {
         LoginBG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Login/Login.png"))); // NOI18N
         jPBG.add(LoginBG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        getContentPane().add(jPBG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 670));
+        getContentPane().add(jPBG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -687,11 +687,23 @@ public class dialogLogin extends javax.swing.JDialog {
         
         Data.setEmail(jTFEmail.getText());
         
-        new dialogForgot(null, true).setVisible(true);
         this.dispose();
+        new dialogForgot(null, true).setVisible(true);
     }//GEN-LAST:event_jLForgotMouseClicked
 
     private void jLSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignInMouseClicked
+        try {           
+            if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", jTFEmail.getText()))){
+                LoginBG.setIcon(emailError);
+                Thread.sleep(100);
+                jLErrorMail.setText("Verify your e-mail");
+                jTFEmail.requestFocus();
+                return;
+            }                           
+        } catch (InterruptedException ex) {
+            Logger.getLogger(dialogLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        
         PreparedStatement ps;
         ResultSet rs;
         
