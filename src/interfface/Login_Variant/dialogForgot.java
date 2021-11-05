@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
-import javax.swing.JTextField;
 
 /**
  *

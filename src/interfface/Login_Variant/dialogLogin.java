@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Random;
@@ -36,6 +37,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class dialogLogin extends javax.swing.JDialog {
     int xMouse, yMouse;
+    private static String MDmail, MDpass;
     ImageIcon emailError = new ImageIcon("src/Images/Login/ForgotPasswordError.png");
     ImageIcon passError = new ImageIcon("src/Images/Login/PasswordError.png");
     ImageIcon login = new ImageIcon("src/Images/Login/Login.png");
@@ -327,8 +329,9 @@ public class dialogLogin extends javax.swing.JDialog {
         
         String sql = "SELECT email FROM USERN WHERE email = ?";
         PreparedStatement prepStmt;    
-        
-        
+        Statement em = null;
+        String usr = "SELECT email, password FROM mdemail";
+        String mdem, mdps = "";
         
         try {
             prepStmt = ConnectionSQL.getConnection().prepareStatement(sql);
@@ -343,16 +346,25 @@ public class dialogLogin extends javax.swing.JDialog {
         } catch (SQLException ex) {
             Logger.getLogger(dialogRegister.class.getName()).log(Level.SEVERE, null, ex);
         }     
-        
-        
+            
         try {
             
+            em = ConnectionSQL.getConnection().createStatement();
+            
+            ResultSet rsem = em.executeQuery(usr);
+            while (rsem.next()) {
+                mdem = rsem.getString("email");
+                mdps = rsem.getString("password");   
+                
+                MDmail = mdem;
+                MDpass = mdps;
+            }
+
             Properties props = new Properties();
 
             props.put("mail.smtp.host", "smtp.gmail.com");
             props.put("mail.smtp.socketFactory.port", "465");
-            props.put("mail.smtp.socketFactory.class",
-            "javax.net.ssl.SSLSocketFactory");
+            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.port", "465");
 
@@ -361,8 +373,8 @@ public class dialogLogin extends javax.swing.JDialog {
                    @Override
                    protected PasswordAuthentication getPasswordAuthentication()
                    {
-                         return new PasswordAuthentication("mydiab.acc@gmail.com",
-                         "mydiab123");
+                         return new PasswordAuthentication(MDmail,
+                         MDpass);
                    }
               });
             
@@ -681,7 +693,7 @@ public class dialogLogin extends javax.swing.JDialog {
 
         }catch (MessagingException ex) {
             throw new RuntimeException(ex);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (UnsupportedEncodingException | SQLException ex) {
             Logger.getLogger(dialogLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         
