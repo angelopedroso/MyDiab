@@ -7,8 +7,6 @@ package interfface.Login_Variant;
 
 import abstractt.Data;
 import connection.ConnectionSQL;
-import interfface.DashBoard.dialogDashBoard;
-import interfface.Login_Variant.dialogRegister;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.UnsupportedEncodingException;
@@ -310,8 +308,8 @@ public class dialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_JTPasswordFocusLost
 
     private void jLSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignUpMouseClicked
-        new dialogRegister(null, true).setVisible(true);
         this.dispose();
+        new dialogRegister(null, true).setVisible(true);
     }//GEN-LAST:event_jLSignUpMouseClicked
 
     private void jLForgotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLForgotMouseClicked

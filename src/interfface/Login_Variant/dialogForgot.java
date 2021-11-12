@@ -66,7 +66,6 @@ public class dialogForgot extends javax.swing.JDialog {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        JPBG.setBorder(null);
         JPBG.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

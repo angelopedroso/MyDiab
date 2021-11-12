@@ -7,6 +7,7 @@ package interfface;
 
 import interfface.Login_Variant.dialogLogin;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,13 +15,14 @@ import javax.swing.JOptionPane;
  * @author angel
  */
 public class SplashSr extends javax.swing.JFrame {
-    
+    ImageIcon logo = new ImageIcon("src/Images/logo.png");
     /**
      * Creates new form SplashSr
      */
     public SplashSr() {
         initComponents();
-        setBackground(new Color(0,0,0,0));
+        this.setBackground(new Color(0,0,0,0));
+        this.setIconImage(logo.getImage());
     }
 
     /**

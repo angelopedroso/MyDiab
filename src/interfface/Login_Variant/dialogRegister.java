@@ -285,8 +285,8 @@ public class dialogRegister extends javax.swing.JDialog {
     }//GEN-LAST:event_jTPasswordFocusLost
 
     private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLoginActionPerformed
-        new dialogLogin(null, true).setVisible(true);
         this.dispose();
+        new dialogLogin(null, true).setVisible(true);
     }//GEN-LAST:event_jBLoginActionPerformed
 
     private void jBLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLoginMouseEntered

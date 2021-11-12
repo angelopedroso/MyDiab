@@ -16,7 +16,7 @@ public class ConnectionSQL {
     public static Connection getConnection() {
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost/MYDIAB", "postgres", "321123");
+            conn = DriverManager.getConnection("jdbc:postgresql://ec2-34-227-120-94.compute-1.amazonaws.com:5432/d799rrk0j3am7e", "zhptmnorwvcocs", "8abc42546a2727b2dfeca3e6d8f955f3b3a55851514501733bda918bfaf85f9a");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

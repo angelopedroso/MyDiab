@@ -6,12 +6,11 @@
 package interfface.Login_Variant;
 
 import abstractt.Data;
+import connection.ConnectionSQL;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.sql.PreparedStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 /**
  *
@@ -19,7 +18,6 @@ import java.sql.SQLException;
  */
 public class dialogNewPass extends javax.swing.JDialog {
     int xMouse, yMouse;
-    Connection con = null;
     PreparedStatement ps = null;
     ImageIcon passerror = new ImageIcon("src/Images/Forgot/NewPasswordError.png");
     ImageIcon pass = new ImageIcon("src/Images/Forgot/NewPassword.png");
@@ -134,8 +132,7 @@ public class dialogNewPass extends javax.swing.JDialog {
         if (pass.equals(newpass)) {
             try {
                 String updateQuery = "UPDATE usern SET password = MD5(?) WHERE email = ?";
-                con = DriverManager.getConnection("jdbc:postgresql://localhost/MYDIAB", "postgres", "321123");
-                ps = con.prepareStatement(updateQuery);
+                ps = ConnectionSQL.getConnection().prepareStatement(updateQuery);
                 ps.setString(1, newpass);
                 ps.setString(2, Data.getEmail());
                 ps.executeUpdate();              
