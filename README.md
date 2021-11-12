@@ -6,4 +6,5 @@
 
 <div><h1>Image Preview:</h1></div>
 
-
+<div>
+   <img></img>
