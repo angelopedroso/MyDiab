@@ -52,3 +52,8 @@
             <li>Average Glucose</li>
       </ul>
 </div>
+
+<div>
+      <h1>License</h1>
+      <p style="font-size: 2em;">This project is licensed under the MIT License - see the <a href="https://github.com/angelopedroso/MyDiab/blob/main/LICENSE" alt="License">LICENSE.md</a> file for details.</p>
+</div>
