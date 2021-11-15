@@ -746,6 +746,7 @@ public class dialogLogin extends javax.swing.JDialog {
             rs = ps.executeQuery();
             
             if (rs.next()) {
+                Data.setEmail(jTFEmail.getText());
                 this.dispose();
                 new dialogDashBoard(null, true).setVisible(true);
             }else{

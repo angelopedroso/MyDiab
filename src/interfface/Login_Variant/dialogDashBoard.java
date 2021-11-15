@@ -5,9 +5,11 @@
  */
 package interfface.Login_Variant;
 
+import abstractt.Data;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.Color;
 import javax.swing.JTextField;
+import model.ResultModel;
 
 /**
  *
@@ -16,6 +18,7 @@ import javax.swing.JTextField;
 public class dialogDashBoard extends javax.swing.JDialog {
     int xMouse, yMouse;
     Color o100 = new Color(0,0,0,0);
+    ResultModel tableModel = new ResultModel();
     /**
      * Creates new form dialogDashBoard
      */
@@ -30,6 +33,7 @@ public class dialogDashBoard extends javax.swing.JDialog {
         jTFSnack2.setHorizontalAlignment(JTextField.CENTER);
         jTFDinner.setHorizontalAlignment(JTextField.CENTER);
         jTFMidnight.setHorizontalAlignment(JTextField.CENTER);
+        jTGlicose.setModel(tableModel);
     }
 
     /**
@@ -48,8 +52,10 @@ public class dialogDashBoard extends javax.swing.JDialog {
         jTFSnack2 = new javax.swing.JTextField();
         jTFDinner = new javax.swing.JTextField();
         jTFMidnight = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTGlicose = new javax.swing.JTable();
         jLBG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -62,6 +68,11 @@ public class dialogDashBoard extends javax.swing.JDialog {
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -176,7 +187,16 @@ public class dialogDashBoard extends javax.swing.JDialog {
         });
         jPBG.add(jTFMidnight, new org.netbeans.lib.awtextra.AbsoluteConstraints(977, 550, 240, 25));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("jLabel2");
+        jPBG.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Lato Black", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("X");
+        jPBG.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 10, -1, -1));
+
+        jTGlicose.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -187,7 +207,7 @@ public class dialogDashBoard extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTGlicose);
 
         jPBG.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 297, 559, 311));
 
@@ -290,6 +310,10 @@ public class dialogDashBoard extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jTFMidnightFocusLost
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        jLabel2.setText(Data.getEmail());
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -312,6 +336,8 @@ public class dialogDashBoard extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLBG;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPBG;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFBreakFast;
@@ -320,6 +346,6 @@ public class dialogDashBoard extends javax.swing.JDialog {
     private javax.swing.JTextField jTFMidnight;
     private javax.swing.JTextField jTFSnack1;
     private javax.swing.JTextField jTFSnack2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTGlicose;
     // End of variables declaration//GEN-END:variables
 }
