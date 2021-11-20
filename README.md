@@ -1,12 +1,12 @@
 # MyDiab
 <div>
-      <img src= "https://github.com/angelopedroso/images/blob/main/mydiab/Screenshot_21.png" width="315" height="200" />
-      <img src= "https://github.com/angelopedroso/images/blob/main/mydiab/Screenshot_22.png" width="315" height="200" />
-      <img src= "https://github.com/angelopedroso/images/blob/main/mydiab/Screenshot_23.png" width="315" height="200" />
-      <img src= "https://github.com/angelopedroso/images/blob/main/mydiab/Screenshot_24.png" width="315" height="200" />
-      <img src= "https://github.com/angelopedroso/images/blob/main/mydiab/Screenshot_25.png" width="315" height="200" />
-      <img src= "https://github.com/angelopedroso/images/blob/main/mydiab/Screenshot_26.png" width="315" height="200" />
-      <img src= "https://github.com/angelopedroso/images/blob/main/mydiab/Screenshot_27.png" width="315" height="200" />
+      <img src= "https://github.com/angelopedroso/MyDiab/blob/main/imagesRDME/Screenshot_21.png" width="315" height="200" />
+      <img src= "https://github.com/angelopedroso/MyDiab/blob/main/imagesRDME/Screenshot_22.png" width="315" height="200" />
+      <img src= "https://github.com/angelopedroso/MyDiab/blob/main/imagesRDME/Screenshot_23.png" width="315" height="200" />
+      <img src= "https://github.com/angelopedroso/MyDiab/blob/main/imagesRDME/Screenshot_24.png" width="315" height="200" />
+      <img src= "https://github.com/angelopedroso/MyDiab/blob/main/imagesRDME/Screenshot_25.png" width="315" height="200" />
+      <img src= "https://github.com/angelopedroso/MyDiab/blob/main/imagesRDME/Screenshot_26.png" width="315" height="200" />
+      <img src= "https://github.com/angelopedroso/MyDiab/blob/main/imagesRDME/Screenshot_27.png" width="315" height="200" />
 </div>
 
 <div>
