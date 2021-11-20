@@ -9,6 +9,7 @@ import abstractt.Data;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import model.ResultModel;
 
 /**
@@ -34,6 +35,19 @@ public class dialogDashBoard extends javax.swing.JDialog {
         jTFDinner.setHorizontalAlignment(JTextField.CENTER);
         jTFMidnight.setHorizontalAlignment(JTextField.CENTER);
         jTGlicose.setModel(tableModel);
+        jLabel2.setText(Data.getEmail());
+        
+        jTGlicose.setBackground(o100);
+        ((DefaultTableCellRenderer)jTGlicose.getDefaultRenderer(Object.class)).setBackground(o100);
+
+        jTGlicose.setGridColor(Color.WHITE);
+        jTGlicose.setForeground(Color.WHITE);
+        
+        jScrollPane1.setBackground(o100);
+        jScrollPane1.setOpaque(false);
+        jTGlicose.setOpaque(false);
+//        jTGlicose.setShowGrid(true);
+        jScrollPane1.getViewport().setOpaque(false);
     }
 
     /**
@@ -198,8 +212,8 @@ public class dialogDashBoard extends javax.swing.JDialog {
 
         jTGlicose.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
+                {"ARROZ", "1", "213", "KG"},
+                {"FSDF", "2", "535", "GR"},
                 {null, null, null, null},
                 {null, null, null, null}
             },
@@ -311,7 +325,7 @@ public class dialogDashBoard extends javax.swing.JDialog {
     }//GEN-LAST:event_jTFMidnightFocusLost
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        jLabel2.setText(Data.getEmail());
+
     }//GEN-LAST:event_formWindowOpened
 
     /**

@@ -8,6 +8,10 @@ package connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author angel
@@ -23,7 +27,40 @@ public class ConnectionSQL {
 
         return conn;
     }
+    
+    public static void closeConnection(Connection conn){
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectionSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
+    public static void closeConnection(Connection conn, PreparedStatement pst){
+        closeConnection(conn);
+        
+        try {
+            if (pst != null) {
+                pst.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectionSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }   
+    
+    public static void closeConnection(Connection conn, PreparedStatement pst, ResultSet rs){
+        closeConnection(conn, pst);
+        
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectionSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }    
     /**
      * @param args the command line arguments
      */

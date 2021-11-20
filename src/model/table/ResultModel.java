@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ResultModel extends AbstractTableModel{
     private LinkedList<Glucose> listGluc = new LinkedList<>();
-    private String[] columns = {"Breakfast","Lunch","1st Snack", "2nd Snack", "Dinner", "Midnight"};
+    private String[] columns = {"Date","Breakfast","Lunch","1st Snack", "2nd Snack", "Dinner", "Midnight"};
 
     @Override
     public String getColumnName(int column) {
