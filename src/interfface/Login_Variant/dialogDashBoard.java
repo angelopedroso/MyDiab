@@ -67,7 +67,6 @@ public class dialogDashBoard extends javax.swing.JDialog {
         jTFDinner = new javax.swing.JTextField();
         jTFMidnight = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTGlicose = new javax.swing.JTable();
         jLBG = new javax.swing.JLabel();
@@ -205,15 +204,10 @@ public class dialogDashBoard extends javax.swing.JDialog {
         jLabel2.setText("jLabel2");
         jPBG.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Lato Black", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("X");
-        jPBG.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 10, -1, -1));
-
         jTGlicose.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"ARROZ", "1", "213", "KG"},
-                {"FSDF", "2", "535", "GR"},
+                {"", "", "", ""},
+                {"", "", "", ""},
                 {null, null, null, null},
                 {null, null, null, null}
             },
@@ -350,7 +344,6 @@ public class dialogDashBoard extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLBG;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPBG;
     private javax.swing.JScrollPane jScrollPane1;

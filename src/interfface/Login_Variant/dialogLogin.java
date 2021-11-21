@@ -6,7 +6,6 @@
 package interfface.Login_Variant;
 
 import abstractt.Data;
-import connection.ConnectionSQL;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.UnsupportedEncodingException;
@@ -14,9 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Random;
@@ -29,6 +26,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import model.login.LoginDAO;
 /**
  *
  * @author angel
@@ -325,16 +323,8 @@ public class dialogLogin extends javax.swing.JDialog {
             Logger.getLogger(dialogLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String sql = "SELECT email FROM USERN WHERE email = ?";
-        PreparedStatement prepStmt;    
-        Statement em = null;
-        String usr = "SELECT email, password FROM mdemail";
-        String mdem, mdps = "";
-        
         try {
-            prepStmt = ConnectionSQL.getConnection().prepareStatement(sql);
-            prepStmt.setString(1, jTFEmail.getText());
-            ResultSet reS = prepStmt.executeQuery();
+            ResultSet reS = LoginDAO.checkEmailExists(jTFEmail.getText());
             if (!reS.next()) {
               LoginBG.setIcon(emailError);  
               jLErrorMail.setText("E-mail Doesn't Exist");
@@ -345,11 +335,10 @@ public class dialogLogin extends javax.swing.JDialog {
             Logger.getLogger(dialogRegister.class.getName()).log(Level.SEVERE, null, ex);
         }     
             
+        String mdem, mdps = "";
+        
         try {
-            
-            em = ConnectionSQL.getConnection().createStatement();
-            
-            ResultSet rsem = em.executeQuery(usr);
+            ResultSet rsem = LoginDAO.emaildb();
             while (rsem.next()) {
                 mdem = rsem.getString("email");
                 mdps = rsem.getString("password");   
@@ -713,20 +702,9 @@ public class dialogLogin extends javax.swing.JDialog {
         } catch (InterruptedException ex) {
             Logger.getLogger(dialogLogin.class.getName()).log(Level.SEVERE, null, ex);
         }        
-        
-        PreparedStatement ps;
-        ResultSet rs;
-        
-        String pass = String.valueOf(JTPassword.getPassword());
-        
-        String query = "SELECT * FROM USERN WHERE ((email = ?) and (password = MD5(?)))";
-        
-        String sql = "SELECT email FROM USERN WHERE email = ?";
-        PreparedStatement prepStmt;
+
         try {
-            prepStmt = ConnectionSQL.getConnection().prepareStatement(sql);
-            prepStmt.setString(1, jTFEmail.getText());
-            ResultSet reS = prepStmt.executeQuery();
+            ResultSet reS = LoginDAO.checkEmailExists(jTFEmail.getText());  
             if (!reS.next()) {
               LoginBG.setIcon(emailError);  
               jLErrorMail.setText("E-mail Doesn't Exist");
@@ -737,14 +715,9 @@ public class dialogLogin extends javax.swing.JDialog {
             Logger.getLogger(dialogRegister.class.getName()).log(Level.SEVERE, null, ex);
         }        
         
+        String pass = String.valueOf(JTPassword.getPassword());
         try {
-            ps = ConnectionSQL.getConnection().prepareStatement(query);
-            
-            ps.setString(1, jTFEmail.getText());
-            ps.setString(2, pass);
-            
-            rs = ps.executeQuery();
-            
+            ResultSet rs = LoginDAO.login(jTFEmail.getText(), pass);
             if (rs.next()) {
                 Data.setEmail(jTFEmail.getText());
                 this.dispose();

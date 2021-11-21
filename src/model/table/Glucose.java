@@ -19,6 +19,15 @@ public class Glucose {
     private int snack2;
     private int dinner;
     private int midnight;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     private String email;
 
     public LocalDate getData() {

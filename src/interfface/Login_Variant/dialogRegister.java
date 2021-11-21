@@ -1,6 +1,5 @@
 package interfface.Login_Variant;
 
-import connection.ConnectionSQL;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.regex.Pattern;
@@ -10,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.register.RegisterDAO;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -321,13 +321,8 @@ public class dialogRegister extends javax.swing.JDialog {
             return;
         }
         
-        String sql = "SELECT email FROM USERN WHERE email = ?";
-        PreparedStatement prepStmt;
-        
         try {
-            prepStmt = ConnectionSQL.getConnection().prepareStatement(sql);
-            prepStmt.setString(1, email);
-            ResultSet rs = prepStmt.executeQuery();
+            ResultSet rs = RegisterDAO.emailExists(email);
             if (rs.next()) {
               jLBG.setIcon(emailError);  
               jLErrorEmail.setText("E-mail Already Exists");
@@ -336,17 +331,9 @@ public class dialogRegister extends javax.swing.JDialog {
         } catch (SQLException ex) {
             Logger.getLogger(dialogRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        
-        PreparedStatement ps;
-        String query = "INSERT INTO usern(email, username, password) VALUES(?, ?, MD5(?))";
         
         try {
-            ps = ConnectionSQL.getConnection().prepareStatement(query);
-            
-            ps.setString(1, email);
-            ps.setString(2, user);
-            ps.setString(3, pass);
+            PreparedStatement ps = RegisterDAO.register(email, user, pass);
             if(ps.executeUpdate() > 0){
                 jLSuccess.setText("Successfully Registered");  
                 jTFUser.setText("Username");

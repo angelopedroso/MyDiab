@@ -6,19 +6,17 @@
 package interfface.Login_Variant;
 
 import abstractt.Data;
-import connection.ConnectionSQL;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import model.newpass.NewPassDAO;
 /**
  *
  * @author angel
  */
 public class dialogNewPass extends javax.swing.JDialog {
     int xMouse, yMouse;
-    PreparedStatement ps = null;
     ImageIcon passerror = new ImageIcon("src/Images/Forgot/NewPasswordError.png");
     ImageIcon pass = new ImageIcon("src/Images/Forgot/NewPassword.png");
     
@@ -131,11 +129,7 @@ public class dialogNewPass extends javax.swing.JDialog {
         String newpass = String.valueOf(jTPasswordConfirm.getPassword());
         if (pass.equals(newpass)) {
             try {
-                String updateQuery = "UPDATE usern SET password = MD5(?) WHERE email = ?";
-                ps = ConnectionSQL.getConnection().prepareStatement(updateQuery);
-                ps.setString(1, newpass);
-                ps.setString(2, Data.getEmail());
-                ps.executeUpdate();              
+                NewPassDAO.update(newpass, Data.getEmail());         
             } catch (SQLException ex) {
                 System.out.println("Error: "+ex);
             }
@@ -146,8 +140,8 @@ public class dialogNewPass extends javax.swing.JDialog {
             return;
         }
         
-        new dialogLogin(null, true).setVisible(true);
         this.dispose();
+        new dialogLogin(null, true).setVisible(true);
     }//GEN-LAST:event_jLConfirmMouseClicked
 
     private void jLConfirmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLConfirmMouseEntered

@@ -24,7 +24,7 @@ public class GlucoseDAO {
         PreparedStatement pst = null;
         
         try {
-            pst = con.prepareStatement("INSERT INTO glucose(data, breakfast, lunch, snack1, snack2, dinner, midnight, email) VALUES(?,?,?,?,?,?,?,?)");
+            pst = con.prepareStatement("INSERT INTO glucose(data, breakfast, lunch, snack1, snack2, dinner, midnight, email, id) VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setObject(1, g.getData());
             pst.setInt(2, g.getBreakfast());
             pst.setInt(3, g.getLunch());
@@ -33,6 +33,7 @@ public class GlucoseDAO {
             pst.setInt(6, g.getDinner());
             pst.setInt(7, g.getMidnight());
             pst.setString(8, g.getEmail());
+            pst.setInt(9, g.getId());
             
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -51,7 +52,7 @@ public class GlucoseDAO {
         LinkedList<Glucose> glucoses = new LinkedList<>();
         
         try {
-            pst = con.prepareStatement("SELECT * FROM glucose");
+            pst = con.prepareStatement("SELECT * FROM glucose WHERE email = ?");
             rs = pst.executeQuery();
             
             while (rs.next()) {                
@@ -65,6 +66,7 @@ public class GlucoseDAO {
                 glucose.setDinner(rs.getInt("dinner"));
                 glucose.setMidnight(rs.getInt("midnight"));
                 glucose.setEmail(rs.getString("email"));
+                glucose.setId(rs.getInt("id"));
                 
                 glucoses.add(glucose);
             }
@@ -78,4 +80,43 @@ public class GlucoseDAO {
         return glucoses;
     }   
 
+    
+    public void update(Glucose g){
+        Connection con = ConnectionSQL.getConnection();
+        PreparedStatement pst = null;
+        
+        try {
+            pst = con.prepareStatement("UPDATE glucose SET data = ?, breakfast = ?, lunch = ?, snack1 = ?, snack2 = ?, dinner = ?, midnight = ? WHERE id = ?");
+            pst.setObject(1, g.getData());
+            pst.setInt(2, g.getBreakfast());
+            pst.setInt(3, g.getLunch());
+            pst.setInt(4, g.getSnack1());
+            pst.setInt(5, g.getSnack2());
+            pst.setInt(6, g.getDinner());
+            pst.setInt(7, g.getMidnight());
+            pst.setInt(8, g.getId());
+            
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(GlucoseDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionSQL.closeConnection(con, pst);
+        }     
+    }    
+    
+    public void delete(Glucose g){
+        Connection con = ConnectionSQL.getConnection();
+        PreparedStatement pst = null;
+        
+        try {
+            pst = con.prepareStatement("DELETE FROM glucose id = ?");
+            pst.setInt(1, g.getId());
+            
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(GlucoseDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionSQL.closeConnection(con, pst);
+        }     
+    }       
 }
